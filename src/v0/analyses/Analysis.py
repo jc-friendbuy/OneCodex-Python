@@ -8,8 +8,6 @@ class Analysis(object):
     analysis result information for a specified analysis.
     """
 
-    RESOURCE_URL = "analyses/:id/"
-
     def __init__(self, the_id):
         """
         Create a new instance of analysis with the provided id.
