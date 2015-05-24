@@ -4,6 +4,8 @@ This class contains the functionality of a specific One Codex analysis, related 
 
 from purl import URL, expand
 from config import Configuration
+import requests
+
 
 class Analysis(object):
     """
@@ -24,7 +26,13 @@ class Analysis(object):
         Returns an ordered list of the top hits found for a given Sample against a given
         ReferenceDatabase (per read or contig).
         """
-        pass
+        table_url = self._get_action_url("table")
+        table_results = requests.get(table_url, auth=self._get_authentication_information())
+
+
+    @staticmethod
+    def _get_authentication_information():
+        return (Configuration.API_KEY, "")
 
     def iterate_through_raw_data(self):
         pass
@@ -33,5 +41,9 @@ class Analysis(object):
         pass
 
     def _get_resource_url(self):
-        url = URL(Configuration.BASE_API_URL) \
-         .path(expand(Analysis.RESOURCE_PATH, {"id": self._id}))
+        return URL(Configuration.BASE_API_URL).path(expand(Analysis.RESOURCE_PATH, {"id": self._id})).as_string
+
+    def _get_action_url(self, action):
+        resource_url = URL(self._get_resource_url())
+        action_url = resource_url.path(action)
+        return action_url
