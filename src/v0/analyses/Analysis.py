@@ -5,6 +5,7 @@ This class contains the functionality of a specific One Codex analysis, related 
 from purl import URL, expand
 from config import Configuration
 import requests
+from requests.auth import HTTPDigestAuth
 
 
 class Analysis(object):
@@ -32,7 +33,7 @@ class Analysis(object):
 
     @staticmethod
     def _get_authentication_information():
-        return (Configuration.API_KEY, "")
+        return HTTPDigestAuth(Configuration.API_KEY, "")
 
     def iterate_through_raw_data(self):
         pass
