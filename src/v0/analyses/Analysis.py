@@ -28,17 +28,21 @@ class Analysis(object):
         ReferenceDatabase (per read or contig).
         """
         table_url = self._get_action_url("table")
-        table_results = requests.get(table_url, auth=self._get_authentication_information())
+        table_results = requests.get(table_url, auth=self._get_authentication_information()).json()
+        return table_results
 
     def iterate_through_raw_data(self):
         pass
 
     def save_raw_data_to_path(self, out_path):
+        # with open(filename, 'wb') as fd:
+        #     for chunk in r.iter_content(chunk_size):
+        #         fd.write(chunk)
         pass
 
     @staticmethod
     def _get_authentication_information():
-        return HTTPDigestAuth(Configuration.get_api_key(), "")
+        return (Configuration.get_api_key(), "")
 
     def _get_resource_url(self):
         return URL(Configuration.BASE_API_URL)\
