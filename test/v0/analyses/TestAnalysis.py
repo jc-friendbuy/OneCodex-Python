@@ -14,3 +14,10 @@ class TestAnalysis(unittest.TestCase):
             u"https://beta.onecodex.com/api/v0/analyses/test_id"
         )
 
+    def test_get_action_url(self):
+        analysis = Analysis("test_id")
+        self.assertEqual(
+            analysis._get_action_url("table"),
+            u"https://beta.onecodex.com/api/v0/analyses/test_id/table"
+        )
+
