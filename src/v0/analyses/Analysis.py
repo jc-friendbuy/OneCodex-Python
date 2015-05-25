@@ -38,7 +38,7 @@ class Analysis(object):
 
     @staticmethod
     def _get_authentication_information():
-        return HTTPDigestAuth(Configuration.API_KEY, "")
+        return HTTPDigestAuth(Configuration.get_api_key(), "")
 
     def _get_resource_url(self):
         return URL(Configuration.BASE_API_URL)\
