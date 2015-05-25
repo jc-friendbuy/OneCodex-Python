@@ -46,6 +46,4 @@ class Analysis(object):
             .as_string()
 
     def _get_action_url(self, action):
-        resource_url = URL(self._get_resource_url())
-        action_url = resource_url.path(action)
-        return action_url
+        return URL(self._get_resource_url()).add_path_segment(action).as_string()
