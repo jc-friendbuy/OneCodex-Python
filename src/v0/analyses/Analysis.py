@@ -3,7 +3,7 @@ This class contains the functionality of a specific One Codex analysis, related 
 """
 
 from purl import URL, expand
-from config import Configuration
+from v0.config import Configuration
 import requests
 from requests.auth import HTTPDigestAuth
 
@@ -30,19 +30,20 @@ class Analysis(object):
         table_url = self._get_action_url("table")
         table_results = requests.get(table_url, auth=self._get_authentication_information())
 
-
-    @staticmethod
-    def _get_authentication_information():
-        return HTTPDigestAuth(Configuration.API_KEY, "")
-
     def iterate_through_raw_data(self):
         pass
 
     def save_raw_data_to_path(self, out_path):
         pass
 
+    @staticmethod
+    def _get_authentication_information():
+        return HTTPDigestAuth(Configuration.API_KEY, "")
+
     def _get_resource_url(self):
-        return URL(Configuration.BASE_API_URL).path(expand(Analysis.RESOURCE_PATH, {"id": self._id})).as_string
+        return URL(Configuration.BASE_API_URL)\
+            .add_path_segment(expand(Analysis.RESOURCE_PATH, {"id": self._id}))\
+            .as_string()
 
     def _get_action_url(self, action):
         resource_url = URL(self._get_resource_url())
