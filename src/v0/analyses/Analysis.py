@@ -5,7 +5,6 @@ This class contains the functionality of a specific One Codex analysis, related 
 from purl import URL, expand
 from v0.config import Configuration
 import requests
-from requests.auth import HTTPDigestAuth
 
 
 class Analysis(object):
@@ -42,12 +41,27 @@ class Analysis(object):
 
     @staticmethod
     def _get_authentication_information():
+        """
+        Get the authentication object to be passed into the resource request for analyses.
+        :return: A (username, password) tuple to be used for authentication with the One Codex
+        API (via HTTP basic auth).
+        """
         return (Configuration.get_api_key(), "")
 
     def _get_resource_url(self):
+        """
+        Get the URL for the Analyses resource with this object's id.
+        :return: A string URL.
+        """
         return URL(Configuration.BASE_API_URL)\
             .add_path_segment(expand(Analysis.RESOURCE_PATH, {"id": self._id}))\
             .as_string()
 
     def _get_action_url(self, action):
+        """
+        Get a URL for the Analyses resource referenced by this object, with the provided action (
+        action here represents a segment of the URL's path).
+        :param action: A string that specifies the action to be referenced by the URL.
+        :return: A string URL that references the Analyses resource with the provided action.
+        """
         return URL(self._get_resource_url()).add_path_segment(action).as_string()
