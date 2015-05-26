@@ -34,9 +34,14 @@ class Analysis(object):
         pass
 
     def save_raw_data_to_path(self, out_path):
-        # with open(filename, 'wb') as fd:
-        #     for chunk in r.iter_content(chunk_size):
-        #         fd.write(chunk)
+        raw_data_url = self._get_action_url("raw")
+        r = requests.get(raw_data_url, auth=self._get_authentication_information(), stream=True,
+                         allow_redirects=True)
+        if r.status_code == 200:
+            with open(out_path, 'wb') as fd:
+                chunk_size = 1024
+                for chunk in r.iter_content(chunk_size):
+                    fd.write(chunk)
         pass
 
     @staticmethod
