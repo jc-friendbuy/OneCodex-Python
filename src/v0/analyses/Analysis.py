@@ -34,6 +34,10 @@ class Analysis(object):
         pass
 
     def save_raw_data_to_path(self, out_path):
+        """
+        Stream the raw analysis data (tsv.gz file) and save it to the given path.
+        :param out_path: The destination path where the raw data file will be saved.
+        """
         raw_data_url = self._get_action_url("raw")
         r = requests.get(raw_data_url, auth=self._get_authentication_information(), stream=True,
                          allow_redirects=True)
@@ -42,7 +46,6 @@ class Analysis(object):
                 chunk_size = 1024
                 for chunk in r.iter_content(chunk_size):
                     fd.write(chunk)
-        pass
 
     @staticmethod
     def _get_authentication_information():
