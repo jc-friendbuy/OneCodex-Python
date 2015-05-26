@@ -34,7 +34,7 @@ class TestAnalysis(unittest.TestCase):
     def test_save_raw_data_to_path(self):
         destination_path = "/Users/jc/Desktop/ocanalysis.tsv.gz"
         analysis = Analysis("3186542a03c74205")
-        analysis.save_raw_data_to_path(destination_path)
+        analysis.download_and_save_raw_data_to_path(destination_path)
         self.assertTrue(path.isfile(destination_path))
         file_stat_info = stat(destination_path)
         self.assertTrue(file_stat_info.st_size, 93735)

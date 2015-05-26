@@ -30,22 +30,32 @@ class Analysis(object):
         table_results = requests.get(table_url, auth=self._get_authentication_information()).json()
         return table_results
 
-    def iterate_through_raw_data(self):
-        pass
-
-    def save_raw_data_to_path(self, out_path):
+    def download_and_save_raw_data_to_path(self, out_path):
         """
-        Stream the raw analysis data (tsv.gz file) and save it to the given path.
+        Iterate through the raw data stream and save it to the given path.
         :param out_path: The destination path where the raw data file will be saved.
+        """
+        with open(out_path, 'wb') as fd:
+            chunk_size = 1024
+            for chunk in self._iterate_through_raw_data_stream(chunk_size):
+                fd.write(chunk)
+
+    def _iterate_through_raw_data_stream(self, chunk_size=1024):
+        """
+        Stream the raw analysis data (encoded as a tsv.gz file, downloaded in byte chunks).
+        :param chunk_size: The size of the chunks in which the file will be downloaded.
+        :return: Yields each of the file chunks using a generator.
         """
         raw_data_url = self._get_action_url("raw")
         r = requests.get(raw_data_url, auth=self._get_authentication_information(), stream=True,
                          allow_redirects=True)
+
+        # TODO: This needs _way_ better error processing, probably added to the request code.
         if r.status_code == 200:
-            with open(out_path, 'wb') as fd:
-                chunk_size = 1024
-                for chunk in r.iter_content(chunk_size):
-                    fd.write(chunk)
+            for chunk in r.iter_content(chunk_size):
+                yield chunk
+        else:
+            raise Exception("Raw data could not be downloaded.")
 
     @staticmethod
     def _get_authentication_information():
