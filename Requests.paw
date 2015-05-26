@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>6AFB0398-A8A2-4A3A-A933-1BB0DE3E4E64</UUID>
-        <nextObjectID>115</nextObjectID>
+        <nextObjectID>118</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -143,7 +143,7 @@
         <attribute name="order" type="int64">1</attribute>
         <attribute name="name" type="string">One Codex</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
-        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z115 z105"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z116 z115 z105"></relationship>
         <relationship name="bodyparameters" type="0/0" destination="LMKEYVALUE"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE"></relationship>
         <relationship name="urlparameters" type="0/0" destination="LMKEYVALUE"></relationship>
@@ -180,5 +180,38 @@
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z112"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z113 z114"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z116">
+        <attribute name="uuid" type="string">E8EB8362-90E8-45FB-82F2-80E35417FF60</attribute>
+        <attribute name="url" type="string">https://beta.onecodex.com/api/v0/analyses/3186542a03c74205/raw</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">GET</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="order" type="int64">2</attribute>
+        <attribute name="name" type="string">Get analysis results</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z112"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z117 z118"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z117">
+        <attribute name="order" type="int64">1</attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z116"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z118">
+        <attribute name="value" type="string">[{"data":{"charset":"us-ascii","username":["f2c79541cbe848e09a373e0357edf8e6"]},"identifier":"com.luckymarmot.BasicAuthDynamicValue"}]</attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string">Authorization</attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z116"></relationship>
     </object>
 </database>
