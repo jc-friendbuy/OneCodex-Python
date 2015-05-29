@@ -14,7 +14,7 @@ class Analysis(OneCodexResource):
     analysis result information for a specified analysis.
     """
 
-    _resource_name = "analyses/"
+    _resource_name = "analyses"
 
     def __init__(self, the_id):
         """
