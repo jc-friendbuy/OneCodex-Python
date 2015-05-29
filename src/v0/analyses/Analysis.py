@@ -2,10 +2,8 @@
 This class contains the functionality of a specific One Codex analysis, related to a sample.
 """
 
-from purl import URL, expand
+from v0.common.OneCodexRequest import OneCodexRequest
 from v0.common.OneCodexResource import OneCodexResource
-from v0.config import Configuration
-import requests
 
 
 class Analysis(OneCodexResource):
@@ -29,7 +27,7 @@ class Analysis(OneCodexResource):
         ReferenceDatabase (per read or contig).
         """
         table_url = self._get_resource_url(id=self._id, action="table")
-        request = self.get(table_url)
+        request = OneCodexRequest.get(table_url)
         return request.json()
 
     def download_and_save_raw_data_to_path(self, out_path):
@@ -49,6 +47,6 @@ class Analysis(OneCodexResource):
         :return: Yields each of the file chunks using a generator.
         """
         raw_data_url = self._get_resource_url(id=self._id, action="raw")
-        r = self.get(raw_data_url, stream=True, allow_redirects=True)
+        r = OneCodexRequest.get(raw_data_url, stream=True, allow_redirects=True)
         for chunk in r.iter_content(chunk_size):
             yield chunk

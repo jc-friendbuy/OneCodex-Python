@@ -12,16 +12,6 @@ class OneCodexResource(object):
     def __init__(self):
         assert self._resource_name is not None, "Missing resource definition"
 
-    def get(self, url, **kwargs):
-        """
-        Issue a get request to the given action
-        :param url: The One Codex URL to which the GET request will be issued.
-        :return: The request object to the given One Codex URL.
-        """
-        request = requests.get(url, **self._get_request_configuration_kwargs(kwargs))
-        request.raise_for_status()
-        return request
-
     @classmethod
     def _get_resource_url(cls, id=None, action=None):
         """
@@ -38,17 +28,4 @@ class OneCodexResource(object):
 
         return base_url.as_string()
 
-    def _get_request_configuration_kwargs(self, kwargs):
-        config = dict()
-        config.update(auth=self._get_authentication_object())
-        config.update(kwargs)
-        return config
 
-    @staticmethod
-    def _get_authentication_object():
-        """
-        Get the authentication object to be passed into a request.
-        :return: A (username, password) tuple to be used for authentication with the One Codex
-        API (via HTTP basic auth).
-        """
-        return (Configuration.get_api_key(), "")
