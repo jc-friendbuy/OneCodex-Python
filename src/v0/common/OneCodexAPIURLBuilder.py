@@ -5,7 +5,7 @@ import requests
 from v0.config import Configuration
 
 
-class OneCodexResource(object):
+class OneCodexAPIURLBuilder(object):
 
     _resource_name = None
 
