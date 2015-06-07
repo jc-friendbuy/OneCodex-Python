@@ -17,7 +17,15 @@ class OneCodexRequest(object):
         return request
 
     @classmethod
-    def _get_request_configuration_kwargs(cls, kwargs):
+    def _get_request_configuration_kwargs(cls, kwargs=None):
+        """
+        Get a dictionary with normalized requests configuration options for creating requests.
+        :param kwargs: A set of keyword arguments to be applied over the default configuration
+        options (may be None, in which case only the defaults will be used).
+        :return: A dictionary with requests configuration values set.
+        """
+        if not kwargs:
+            kwargs = dict()
         config = dict()
         config.update(auth=cls._get_authentication_object())
         config.update(kwargs)

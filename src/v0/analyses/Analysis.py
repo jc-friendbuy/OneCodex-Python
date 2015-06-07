@@ -3,10 +3,10 @@ This class contains the functionality of a specific One Codex analysis, related 
 """
 
 from v0.common.OneCodexRequest import OneCodexRequest
-from v0.common.OneCodexResource import OneCodexResource
+from v0.common.OneCodexAPIURLBuilder import OneCodexAPIURLBuilder
 
 
-class Analysis(OneCodexResource):
+class Analysis(OneCodexAPIURLBuilder):
     """
     This class allows for interaction with One Codex Analysis API objects, particularly retrieving
     analysis result information for a specified analysis.
@@ -26,7 +26,7 @@ class Analysis(OneCodexResource):
         Returns an ordered list of the top hits found for a given Sample against a given
         ReferenceDatabase (per read or contig).
         """
-        table_url = self._get_resource_url(id=self._id, action="table")
+        table_url = self.get_resource_url(id=self._id, action="table")
         request = OneCodexRequest.get(table_url)
         return request.json()
 
@@ -46,7 +46,7 @@ class Analysis(OneCodexResource):
         :param chunk_size: The size of the chunks in which the file will be downloaded.
         :return: Yields each of the file chunks using a generator.
         """
-        raw_data_url = self._get_resource_url(id=self._id, action="raw")
-        r = OneCodexRequest.get(raw_data_url, stream=True, allow_redirects=True)
+        raw_data_url = self.get_resource_url(id=self._id, action="raw")
+        r = OneCodexRequest.get(raw_data_url, stream=True)
         for chunk in r.iter_content(chunk_size):
             yield chunk
