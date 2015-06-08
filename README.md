@@ -8,9 +8,9 @@ Bindings for the OneCodex REST API in Python.
  - The currently targeted One Codex API version is 0, which is the last published version.
 
 ## Required packages:
- - This project requires: nose>=1.3.6, requests>=2.7.0 and purl>=1.1.  A setup.py file will be 
-   added later which will automate installation.  For now, though, they need to be installed 
-   manually.
+ - This project requires: `nose>=1.3.6`, `requests>=2.7.0` and `purl>=1.1`.  A setup.py file will
+  be added later which will automate installation.  For now, though, they need to be installed 
+  manually.
 
 ## Usage
 `python main.py` will run all tests for all API versions (currently only v0).  This *should* not 
