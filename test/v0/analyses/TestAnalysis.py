@@ -15,7 +15,7 @@ class TestAnalysis(unittest.TestCase):
         analysis = Analysis("3186542a03c74205")
         table_results = analysis.get_table()
         self.assertIsInstance(table_results, list)
-        # TODO: add more tests
+        self.assertEqual(len(table_results), 125)
 
     def test_save_raw_data_to_path(self):
         destination_path = "/Users/jc/Desktop/ocanalysis.tsv.gz"
@@ -27,5 +27,3 @@ class TestAnalysis(unittest.TestCase):
         self.assertTrue(file_stat_info.st_birthtime, 1432661815)
         md5_digest = md5(open(destination_path, "rb").read()).hexdigest()
         self.assertTrue(md5_digest, "ef636300ebf69d82720f335842efd2ba")
-
-    # ADD MORE TESTS FOR GET TABLE
