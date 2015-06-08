@@ -16,9 +16,9 @@ class OneCodexAPIURLBuilder(object):
         base_url = URL(Configuration.BASE_API_URL).add_path_segment(self._resource_name)
 
         if id:
-            base_url = base_url.add_path_segment(str(id))
+            base_url = base_url.add_path_segment(id)
 
         if action:
-            base_url = base_url.add_path_segment(str(action))
+            base_url = base_url.add_path_segment(action)
 
         return base_url.as_string()

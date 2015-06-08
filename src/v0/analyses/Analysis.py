@@ -12,7 +12,7 @@ class Analysis(object):
     analysis result information for a specified analysis.
     """
 
-    _url_builder = OneCodexAPIURLBuilder("analyses")
+    _url_builder = OneCodexAPIURLBuilder(u"analyses")
 
     def __init__(self, the_id):
         """
@@ -25,7 +25,7 @@ class Analysis(object):
         Returns an ordered list of the top hits found for a given Sample against a given
         ReferenceDatabase (per read or contig).
         """
-        table_url = self._url_builder.get_resource_url(id=self._id, action="table")
+        table_url = self._url_builder.get_resource_url(id=self._id, action=u"table")
         request = OneCodexRequest.get(table_url)
         return request.json()
 
@@ -34,7 +34,7 @@ class Analysis(object):
         Iterate through the raw data stream and save it to the given path.
         :param out_path: The destination path where the raw data file will be saved.
         """
-        with open(out_path, 'wb') as fd:
+        with open(out_path, u"wb") as fd:
             for chunk in self._iterate_through_raw_data_stream(chunk_size=1024):
                 fd.write(chunk)
 

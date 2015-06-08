@@ -38,4 +38,4 @@ class OneCodexRequest(object):
         :return: A (username, password) tuple to be used for authentication with the One Codex
         API (via HTTP basic auth).
         """
-        return (Configuration.get_api_key(), "")
+        return (Configuration.get_api_key(), u"")
