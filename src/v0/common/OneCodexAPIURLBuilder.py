@@ -1,6 +1,5 @@
-
-
 from purl import URL
+
 from v0.config import Configuration
 
 
