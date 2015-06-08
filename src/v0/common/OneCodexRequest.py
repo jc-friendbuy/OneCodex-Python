@@ -1,5 +1,4 @@
 import requests
-
 from v0.config import Configuration
 
 
