@@ -17,9 +17,9 @@ def setup():
 
     from v0.analyses.Analysis import Analysis
     """
-    print("Setting up testing environment")
+    print(u"Setting up testing environment")
     current_path = path.realpath(sys.argv[0])
-    api_version_source_path = path.join(current_path, "../src/")
+    api_version_source_path = path.join(current_path, u"../src/")
     sys.path = [path.realpath(api_version_source_path)] + sys.path
 
 
