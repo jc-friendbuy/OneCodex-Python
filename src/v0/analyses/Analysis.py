@@ -35,8 +35,7 @@ class Analysis(object):
         :param out_path: The destination path where the raw data file will be saved.
         """
         with open(out_path, 'wb') as fd:
-            chunk_size = 1024
-            for chunk in self._iterate_through_raw_data_stream(chunk_size):
+            for chunk in self._iterate_through_raw_data_stream(chunk_size=1024):
                 fd.write(chunk)
 
     def _iterate_through_raw_data_stream(self, chunk_size=1024):
