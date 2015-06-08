@@ -6,19 +6,18 @@ from v0.common.OneCodexRequest import OneCodexRequest
 from v0.common.OneCodexAPIURLBuilder import OneCodexAPIURLBuilder
 
 
-class Analysis(OneCodexAPIURLBuilder):
+class Analysis(object):
     """
     This class allows for interaction with One Codex Analysis API objects, particularly retrieving
     analysis result information for a specified analysis.
     """
 
-    _resource_name = "analyses"
+    _url_builder = OneCodexAPIURLBuilder("analyses")
 
     def __init__(self, the_id):
         """
         Create a new instance of analysis with the provided id.
         """
-        super(Analysis, self).__init__()
         self._id = the_id
 
     def get_table(self):
@@ -26,7 +25,7 @@ class Analysis(OneCodexAPIURLBuilder):
         Returns an ordered list of the top hits found for a given Sample against a given
         ReferenceDatabase (per read or contig).
         """
-        table_url = self.get_resource_url(id=self._id, action="table")
+        table_url = self._url_builder.get_resource_url(id=self._id, action="table")
         request = OneCodexRequest.get(table_url)
         return request.json()
 
@@ -46,7 +45,7 @@ class Analysis(OneCodexAPIURLBuilder):
         :param chunk_size: The size of the chunks in which the file will be downloaded.
         :return: Yields each of the file chunks using a generator.
         """
-        raw_data_url = self.get_resource_url(id=self._id, action="raw")
+        raw_data_url = self._url_builder.get_resource_url(id=self._id, action="raw")
         r = OneCodexRequest.get(raw_data_url, stream=True)
         for chunk in r.iter_content(chunk_size):
             yield chunk
