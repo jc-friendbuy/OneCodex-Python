@@ -10,6 +10,8 @@ from v0.common.OneCodexRequest import OneCodexRequest
 
 _url_builder = OneCodexAPIURLBuilder(u"analyses")
 
+# TODO: Probably extract data from the API in functions or module?
+
 
 def get_all():
     """
