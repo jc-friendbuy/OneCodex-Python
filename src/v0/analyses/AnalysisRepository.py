@@ -5,12 +5,11 @@ Analysis.
 """
 
 from v0.analyses.Analysis import Analysis
+from v0.analyses.AnalysisDataAdapter import AnalysisDataAdapter
 from v0.common.OneCodexAPIURLBuilder import OneCodexAPIURLBuilder
 from v0.common.OneCodexRequest import OneCodexRequest
 
 _url_builder = OneCodexAPIURLBuilder(u"analyses")
-
-# TODO: Probably extract data from the API in functions or module?
 
 
 def get_all():
@@ -41,13 +40,14 @@ def refresh(analysis):
     :return: None.
     """
     data = _get_analysis_data(analysis.id)
-    analysis.status = data[u"analysis_status"]
-    analysis.number_reads = int(data[u"n_reads"]) or None
-    analysis.proportion_mapped = float(data[u"p_mapped"]) or None
-    analysis.reference_id = data[u"reference_id"]
-    analysis.reference_name = data[u"reference_name"]
-    analysis.sample_id = data[u"sample_id"]
-    analysis.sample_filename = data[u"sample_filename"]
+    data_adapter = AnalysisDataAdapter(data)
+    analysis.status = data_adapter.status
+    analysis.number_reads = data_adapter.number_reads
+    analysis.proportion_mapped = data_adapter.proportion_mapped
+    analysis.reference_id = data_adapter.reference_id
+    analysis.reference_name = data_adapter.reference_name
+    analysis.sample_id = data_adapter.sample_id
+    analysis.sample_filename = data_adapter.sample_filename
 
 
 def _get_analysis_data(analysis_id):
@@ -68,12 +68,13 @@ def _construct_analysis_from_id_and_data(id, data):
     :param data: The data dictionary with the data for the instance.
     :return: An instance of Analysis with the given ID and data.
     """
-    status = data[u"analysis_status"]
-    number_reads = int(data[u"n_reads"]) or None
-    proportion_mapped = float(data[u"p_mapped"]) or None
-    reference_id = data[u"reference_id"]
-    reference_name = data[u"reference_name"]
-    sample_id = data[u"sample_id"]
-    sample_filename = data[u"sample_filename"]
+    data_adapter = AnalysisDataAdapter(data)
+    status = data_adapter.status
+    number_reads = data_adapter.number_reads
+    proportion_mapped = data_adapter.proportion_mapped
+    reference_id = data_adapter.reference_id
+    reference_name = data_adapter.reference_name
+    sample_id = data_adapter.sample_id
+    sample_filename = data_adapter.sample_filename
     return Analysis(id, status, number_reads, proportion_mapped, reference_id, reference_name,
                     sample_id, sample_filename)
